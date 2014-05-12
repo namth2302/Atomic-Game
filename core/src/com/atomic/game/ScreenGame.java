@@ -1,10 +1,10 @@
 package com.atomic.game;
-import com.atomic.helper.AbstractScreen;
-import com.atomic.helper.BroadGame;
-import com.atomic.helper.ButtonGame;
-import com.atomic.helper.MenuCreator;
-import com.atomic.option.ASSET;
-import com.atomic.option.OPTION_GAME;
+import com.atomic.abstractgame.AbstractScreen;
+import com.atomic.abstractgame.BroadGame;
+import com.atomic.abstractgame.ButtonGame;
+import com.atomic.abstractgame.MenuCreator;
+import com.atomic.asset.Asset;
+import com.atomic.option.OptionGame;
 import com.atomic.option.jlevel;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -37,7 +37,7 @@ public class ScreenGame extends AbstractScreen{
 		broad = new BroadGame(text, json);
 		setBackButton(true);
 
-		setBackground(new TextureRegion(ASSET.loadTexture("imgBG.jpg")));
+		setBackground(new TextureRegion(Asset.loadTexture("imgBG.jpg")));
 		
 		
 		initial();
@@ -48,21 +48,20 @@ public class ScreenGame extends AbstractScreen{
 //		lazy.setUpConnect("c");
 //		getStage().addActor(lazy);
 		setUpButtonGame();
-		setUpMapGame();
 	}
 	
 	private void setUpButtonGame() {
-		btnRedo = MenuCreator.createCustomGameButton(ASSET.btnRecno, ASSET.btnRecno);
+		btnRedo = MenuCreator.createCustomGameButton(Asset.btnRecno, Asset.btnRecno);
 		btnRedo.setSize(70, 70);
 		btnRedo.setPosition(1030, 200);
 		getStage().addActor(btnRedo);
 		
-		btnUndo = MenuCreator.createCustomGameButton(ASSET.btnUndo, ASSET.btnUndo);
+		btnUndo = MenuCreator.createCustomGameButton(Asset.btnUndo, Asset.btnUndo);
 		btnUndo.setSize(70, 70);
 		btnUndo.setPosition(900, 200);
 		getStage().addActor(btnUndo);
 		
-		btnReset = MenuCreator.createCustomGameButton(ASSET.btnReset, ASSET.btnReset);
+		btnReset = MenuCreator.createCustomGameButton(Asset.btnReset, Asset.btnReset);
 		btnReset.setSize(80, 80);
 		btnReset.setPosition(1150, 190);
 		getStage().addActor(btnReset);
@@ -72,27 +71,10 @@ public class ScreenGame extends AbstractScreen{
 //		btnUp.setPosition(lazy.getLazyPointX()*53, (lazy.getLazyPointY()+1)*53);
 //		getStage().addActor(btnUp);
 		
-		avatar = new Image(ASSET.imgDefaultAvantarMan);
+		avatar = new Image(Asset.imgDefaultAvantarMan);
 		avatar.setSize(90, 90);
 		avatar.setPosition(850, 700);
 		getStage().addActor(avatar);
-	}
-	
-	private void setUpMapGame() {
-		for (int i = 0; i < broad.getHeight(); i++) {
-			for (int j = 0; j < broad.getWidth(); j++) {
-				if (broad.getLocalMap(i, j).equals("#")) {
-					createWall(j, i);
-				}
-			}
-		}
-	}
-	
-	private void createWall(int x, int y) {
-		Image wall = new Image(ASSET.imgWall);
-		wall.setPosition(OPTION_GAME.START_X + broad.getMarginX() + x*53, OPTION_GAME.START_Y + broad.getMarginY() + y*53);
-		wall.setSize(53, 53);
-		getStage().addActor(wall);
 	}
 	
 	@Override

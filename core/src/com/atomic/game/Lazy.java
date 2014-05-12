@@ -2,11 +2,11 @@ package com.atomic.game;
 
 import java.util.ArrayList;
 
-import com.atomic.helper.AbstractActor;
-import com.atomic.helper.ButtonGame;
-import com.atomic.helper.MenuCreator;
-import com.atomic.option.ASSET;
-import com.atomic.option.OPTION_GAME;
+import com.atomic.abstractgame.AbstractActor;
+import com.atomic.abstractgame.ButtonGame;
+import com.atomic.abstractgame.MenuCreator;
+import com.atomic.asset.Asset;
+import com.atomic.option.OptionGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,10 +28,10 @@ public class Lazy extends AbstractActor{
 	}
 	
 	public void setUpConnect(String con) {
-		for (int i = 0; i < OPTION_GAME.BOND_KIND.length; i++) {
-			if (OPTION_GAME.BOND_KIND[i][0].equals(con)) {
-				System.out.print("katomic/"+OPTION_GAME.BOND_KIND[i][1]+".png");
-				TextureRegion textu = new TextureRegion(ASSET.loadTexture("katomic/"+OPTION_GAME.BOND_KIND[i][1]+".png"));
+		for (int i = 0; i < OptionGame.BOND_KIND.length; i++) {
+			if (OptionGame.BOND_KIND[i][0].equals(con)) {
+				System.out.print("katomic/"+OptionGame.BOND_KIND[i][1]+".png");
+				TextureRegion textu = new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.BOND_KIND[i][1]+".png"));
 				connect.add(textu);
 			}
 		}
