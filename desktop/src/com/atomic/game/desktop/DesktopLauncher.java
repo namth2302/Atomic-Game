@@ -8,9 +8,10 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Atomic Game";
-		config.resizable = false;
-		config.width = 870;
-		config.height = 520;
+		config.resizable = true;
+		config.resizable = true;
+		config.width = 560;
+		config.height = 480;
 		new LwjglApplication(new AtomicGame(), config);
 	}
 }
