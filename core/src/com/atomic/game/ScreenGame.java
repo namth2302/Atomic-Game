@@ -18,22 +18,20 @@ public class ScreenGame extends AbstractScreen{
 	private ButtonGame btnReset;
 	
 	private Image avatar;
-	private JsonLevel jsonInfo;
+	private BroadGame broad;
 	
 	public ScreenGame(Game _game, String _nameScreen, JsonLevel _jsonInfo) {
 		super(_game, _nameScreen);
-		jsonInfo = _jsonInfo;
+		broad = new BroadGame(_jsonInfo);
+		setUpScreenElement();
 	}
 
 	@Override
 	public void setUpScreenElement() {
 		setBackButton(true);
-		setBackground(new TextureRegion(Asset.loadTexture("imgBG.jpg")));	
-		initial();
-	}
-	
-	private void initial() {
-//		setUpButtonGame();
+		setBackground(new TextureRegion(Asset.loadTexture("bg.png")));	
+		setUpButtonGame();
+		Gdx.app.log(getNameScreen(), "" + broad.getWidthBroad() + " --- " + broad.getHeightBroad());
 	}
 	
 	private void setUpButtonGame() {
