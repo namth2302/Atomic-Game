@@ -61,6 +61,7 @@ public class ScreenGame extends AbstractScreen{
 		getStage().addActor(btnDown);
 		getStage().addActor(btnUp);
 		showBtnMove();
+		
 	}
 	
 	private void setPosBtnMove() {
@@ -72,16 +73,32 @@ public class ScreenGame extends AbstractScreen{
 	
 	private void showBtnMove() {
 		if (!broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")) {
-//			btnLeft.setShowActive(false);
+			btnDown.setVisible(false);
+			btnDown.setDisabled(true);
+		} else {
+			btnDown.setVisible(true);
+			btnDown.setDisabled(false);
 		}
 		if (!broad.getMapBroad()[pointCurrentX+1][pointCurrentY].equals(".")) {
-//			btnRight.setShowActive(false);
+			btnUp.setVisible(false);
+			btnUp.setDisabled(true);
+		} else {
+			btnUp.setVisible(true);
+			btnUp.setDisabled(false);
 		}
 		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY-1].equals(".")) {
-//			btnDown.setShowActive(false);
+			btnLeft.setVisible(false);
+			btnLeft.setDisabled(true);
+		} else {
+			btnLeft.setVisible(true);
+			btnLeft.setDisabled(false);
 		}
 		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY+1].equals(".")) {
-//			btnUp.setShowActive(false);
+			btnRight.setVisible(false);
+			btnRight.setDisabled(true);
+		} else {
+			btnRight.setVisible(true);
+			btnRight.setDisabled(false);
 		}
 	}
 	
