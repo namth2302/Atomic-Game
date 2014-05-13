@@ -4,50 +4,36 @@ import com.atomic.abstractgame.BroadGame;
 import com.atomic.abstractgame.ButtonGame;
 import com.atomic.abstractgame.MenuCreator;
 import com.atomic.asset.Asset;
-import com.atomic.option.OptionGame;
-import com.atomic.option.jlevel;
+import com.atomic.asset.JsonLevel;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Json;
-import com.sun.java_cup.internal.runtime.Symbol;
 
 public class ScreenGame extends AbstractScreen{
 	
-	private Image avatar;
 	private ButtonGame btnRedo;
 	private ButtonGame btnUndo;
 	private ButtonGame btnReset;
-	private ButtonGame btnUp;
-
 	
-	private BroadGame broad;
- 	
-//	private Lazy lazy;
+	private Image avatar;
+	private JsonLevel jsonInfo;
 	
-	public ScreenGame(Game _game, String _nameScreen) {
+	public ScreenGame(Game _game, String _nameScreen, JsonLevel _jsonInfo) {
 		super(_game, _nameScreen);
+		jsonInfo = _jsonInfo;
 	}
 
 	@Override
 	public void setUpScreenElement() {
-		Json json = new Json();
-		jlevel text = json.fromJson(jlevel.class, Gdx.files.internal("item/katomicLevel.json"));
-		broad = new BroadGame(text, json);
 		setBackButton(true);
-
-		setBackground(new TextureRegion(Asset.loadTexture("imgBG.jpg")));
-		
-		
+		setBackground(new TextureRegion(Asset.loadTexture("imgBG.jpg")));	
 		initial();
 	}
 	
 	private void initial() {
-//		lazy = new Lazy(ASSET.imgAtomBr, 1, 1, 53, 53);
-//		lazy.setUpConnect("c");
-//		getStage().addActor(lazy);
-		setUpButtonGame();
+//		setUpButtonGame();
 	}
 	
 	private void setUpButtonGame() {
@@ -80,5 +66,11 @@ public class ScreenGame extends AbstractScreen{
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+	}
+	
+	@Override
+	public void keyBackPressed() {
+		this.dispose();
+		getGame().dispose();
 	}
 }
