@@ -93,4 +93,12 @@ public class ActorGame extends Actor {
 	public void setLstLink(String _lstLink) {
 		lstLink = _lstLink;
 	}
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public int getPoxY() {
+		return posY;
+	}
 }

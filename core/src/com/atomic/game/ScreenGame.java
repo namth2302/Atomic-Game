@@ -18,6 +18,13 @@ public class ScreenGame extends AbstractScreen{
 	private ButtonGame btnRedo;
 	private ButtonGame btnUndo;
 	private ButtonGame btnReset;
+	private ButtonGame btnLeft;
+	private ButtonGame btnRight;
+	private ButtonGame btnDown;
+	private ButtonGame btnUp;
+	
+	private int pointCurrentX;
+	private int pointCurrentY;
 	
 	private Image avatar;
 	private BroadGame broad;
@@ -37,6 +44,45 @@ public class ScreenGame extends AbstractScreen{
 		setUpButtonGame();
 		setUpLstActor();
 		setUpMapGame();
+		setUpbtnMoveGame();
+	}
+	
+	private void setUpbtnMoveGame() {
+		btnLeft = MenuCreator.createCustomGameButton(Asset.btnLeft, Asset.btnLeft);
+		btnRight = MenuCreator.createCustomGameButton(Asset.btnRight, Asset.btnRight);
+		btnDown = MenuCreator.createCustomGameButton(Asset.btnDown, Asset.btnDown);
+		btnUp = MenuCreator.createCustomGameButton(Asset.btnUp, Asset.btnUp);
+		pointCurrentX = lstActor.get(0).getPosX();
+		pointCurrentY = lstActor.get(0).getPoxY();
+		setPosBtnMove();
+		
+		getStage().addActor(btnLeft);
+		getStage().addActor(btnRight);
+		getStage().addActor(btnDown);
+		getStage().addActor(btnUp);
+		showBtnMove();
+	}
+	
+	private void setPosBtnMove() {
+		btnLeft.setPosition(broad.getStartDrawX() + (pointCurrentY-1)*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
+		btnRight.setPosition(broad.getStartDrawX() + (pointCurrentY+1)*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
+		btnDown.setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX - 1)*53);
+		btnUp.setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX + 1)*53);
+	}
+	
+	private void showBtnMove() {
+		if (!broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")) {
+//			btnLeft.setShowActive(false);
+		}
+		if (!broad.getMapBroad()[pointCurrentX+1][pointCurrentY].equals(".")) {
+//			btnRight.setShowActive(false);
+		}
+		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY-1].equals(".")) {
+//			btnDown.setShowActive(false);
+		}
+		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY+1].equals(".")) {
+//			btnUp.setShowActive(false);
+		}
 	}
 	
 	private void setUpLstActor() {
@@ -64,12 +110,6 @@ public class ScreenGame extends AbstractScreen{
 							getStage().addActor(lstActor.get(j2));
 						}
 					}
-//					for (int j2 = 0; j2 < OptionGame.ITEM_KIND.length; j2++) {
-//						if (broad.getLocal(i, j).equals(OptionGame.ITEM_KIND[j2][0])) {
-//							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getStartDrawX(), broad.getStartDrawY(), broad.getWidthBroad() - i);
-//							getStage().addActor(actor);
-//						}
-//					}
 				}
 			}
 		}
