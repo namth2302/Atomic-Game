@@ -1,5 +1,8 @@
 package com.atomic.game;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import com.atomic.abstractgame.AbstractScreen;
+import com.atomic.abstractgame.ActorGame;
 import com.atomic.abstractgame.BroadGame;
 import com.atomic.abstractgame.ButtonGame;
 import com.atomic.abstractgame.MenuCreator;
@@ -7,10 +10,8 @@ import com.atomic.asset.Asset;
 import com.atomic.asset.JsonLevel;
 import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Json;
 
 public class ScreenGame extends AbstractScreen{
 	
@@ -40,6 +41,13 @@ public class ScreenGame extends AbstractScreen{
 			for (int j = 0; j < broad.getWidthBroad(); j++) {
 				if (broad.getLocal(i, j).equals(OptionGame.WALL)) {
 					drawWall(broad.getWidthBroad() - i, j);
+				} else {
+					for (int j2 = 0; j2 < OptionGame.ITEM_KIND.length; j2++) {
+						if (broad.getLocal(i, j).equals(OptionGame.ITEM_KIND[j2][0])) {
+							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getWidthBroad() - i, broad.getStartDrawY());
+							getStage().addActor(actor);
+						}
+					}
 				}
 			}
 		}
