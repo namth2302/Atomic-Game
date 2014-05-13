@@ -72,4 +72,8 @@ public class BroadGame {
 	public String getLocal(int x, int y) {
 		return map[x][y];
 	}
+	
+	public JsonLevel getMapInfo() {
+		return mapInfo;
+	}
 }

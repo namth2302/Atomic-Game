@@ -15,7 +15,7 @@ public class AbstractActors extends Actor{
 	private int posX;
 	private int posY;
 	
-	public AbstractActors(TextureRegion _textureRegion, int _posX, int _posY
+	public AbstractActors(String _ID,TextureRegion _textureRegion, int _posX, int _posY
 			, int _width, int _height) {
 		super();
 		textureRegion = _textureRegion;
@@ -40,7 +40,6 @@ public class AbstractActors extends Actor{
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		batch.setColor(this.getColor());
-		
 		batch.draw(textureRegion, getX(), getY(), getWidth(), getHeight());
 	}
 	

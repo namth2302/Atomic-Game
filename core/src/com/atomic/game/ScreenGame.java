@@ -44,7 +44,7 @@ public class ScreenGame extends AbstractScreen{
 				} else {
 					for (int j2 = 0; j2 < OptionGame.ITEM_KIND.length; j2++) {
 						if (broad.getLocal(i, j).equals(OptionGame.ITEM_KIND[j2][0])) {
-							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getWidthBroad() - i, broad.getStartDrawY());
+							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getStartDrawX(), broad.getStartDrawY(), broad.getWidthBroad() - i);
 							getStage().addActor(actor);
 						}
 					}
