@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.title = "Atomic Game";
 		config.resizable = true;
 		config.resizable = true;
-		config.width = 560;
+		config.width = 650;
 		config.height = 480;
 		new LwjglApplication(new AtomicGame(), config);
 	}
