@@ -10,8 +10,11 @@ import com.atomic.asset.Asset;
 import com.atomic.asset.JsonLevel;
 import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 public class ScreenGame extends AbstractScreen{
 	
@@ -23,6 +26,7 @@ public class ScreenGame extends AbstractScreen{
 	private ButtonGame btnDown;
 	private ButtonGame btnUp;
 	
+	private String idCurrent;
 	private int pointCurrentX;
 	private int pointCurrentY;
 	
@@ -54,14 +58,50 @@ public class ScreenGame extends AbstractScreen{
 		btnUp = MenuCreator.createCustomGameButton(Asset.btnUp, Asset.btnUp);
 		pointCurrentX = lstActor.get(0).getPosX();
 		pointCurrentY = lstActor.get(0).getPoxY();
+		idCurrent = lstActor.get(0).getId();
 		setPosBtnMove();
-		
+		btnListener();
 		getStage().addActor(btnLeft);
 		getStage().addActor(btnRight);
 		getStage().addActor(btnDown);
 		getStage().addActor(btnUp);
 		showBtnMove();
 		
+	}
+	
+	private void btnListener() {
+		btnLeft.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "LEFT");
+			}
+		});
+		btnRight.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "RIGHT");
+			}
+		});
+		btnDown.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "DOWN");
+			}
+		});
+		btnUp.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "UP");
+			}
+		});
 	}
 	
 	private void setAllUnvisiableBtn() {
@@ -141,16 +181,19 @@ public class ScreenGame extends AbstractScreen{
 		btnRedo = MenuCreator.createCustomGameButton(Asset.btnRecno, Asset.btnRecno);
 		btnRedo.setSize(70, 70);
 		btnRedo.setPosition(1030, 200);
+		btnRedo.setIsShowActive(true);
 		getStage().addActor(btnRedo);
 		
 		btnUndo = MenuCreator.createCustomGameButton(Asset.btnUndo, Asset.btnUndo);
 		btnUndo.setSize(70, 70);
 		btnUndo.setPosition(900, 200);
+		btnUndo.setIsShowActive(true);
 		getStage().addActor(btnUndo);
 		
 		btnReset = MenuCreator.createCustomGameButton(Asset.btnReset, Asset.btnReset);
 		btnReset.setSize(80, 80);
 		btnReset.setPosition(1150, 190);
+		btnReset.setIsShowActive(true);
 		getStage().addActor(btnReset);
 		
 //		btnUp = MenuCreator.createCustomGameButton(ASSET.imgBtnUp, ASSET.imgBtnUp);

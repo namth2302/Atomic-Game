@@ -19,7 +19,7 @@ public class ButtonGame extends Button{
 	
 	@Override
 	public Actor hit(float x, float y, boolean touchable) {
-		if (!isShowActive) {
+		if (isShowActive) {
 			return super.hit(x, y, touchable);
 		} else {
 			return null;
