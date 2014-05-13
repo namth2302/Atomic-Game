@@ -5,6 +5,7 @@ import com.atomic.abstractgame.ButtonGame;
 import com.atomic.abstractgame.MenuCreator;
 import com.atomic.asset.Asset;
 import com.atomic.asset.JsonLevel;
+import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,7 +32,23 @@ public class ScreenGame extends AbstractScreen{
 		setBackButton(true);
 		setBackground(new TextureRegion(Asset.loadTexture("bg.png")));	
 		setUpButtonGame();
-		Gdx.app.log(getNameScreen(), "" + broad.getWidthBroad() + " --- " + broad.getHeightBroad());
+		setUpMapGame();
+	}
+	
+	private void setUpMapGame() {
+		for (int i = 0; i < broad.getHeightBroad(); i++) {
+			for (int j = 0; j < broad.getWidthBroad(); j++) {
+				if (broad.getLocal(i, j).equals(OptionGame.WALL)) {
+					drawWall(broad.getWidthBroad() - i, j);
+				}
+			}
+		}
+	}
+	
+	private void drawWall(int x, int y) {
+		Image imgWall = new Image(Asset.imgWall);
+		imgWall.setPosition((broad.getStartDrawX() + (y*53)), broad.getStartDrawY() + x*53);
+		getStage().addActor(imgWall);
 	}
 	
 	private void setUpButtonGame() {
