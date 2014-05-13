@@ -1,5 +1,5 @@
 package com.atomic.game;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
+import java.util.ArrayList;
 
 import com.atomic.abstractgame.AbstractScreen;
 import com.atomic.abstractgame.ActorGame;
@@ -22,6 +22,8 @@ public class ScreenGame extends AbstractScreen{
 	private Image avatar;
 	private BroadGame broad;
 	
+	private ArrayList<ActorGame> lstActor = new ArrayList<ActorGame>();
+	
 	public ScreenGame(Game _game, String _nameScreen, JsonLevel _jsonInfo) {
 		super(_game, _nameScreen);
 		broad = new BroadGame(_jsonInfo);
@@ -33,7 +35,19 @@ public class ScreenGame extends AbstractScreen{
 		setBackButton(true);
 		setBackground(new TextureRegion(Asset.loadTexture("bg.png")));	
 		setUpButtonGame();
+		setUpLstActor();
 		setUpMapGame();
+	}
+	
+	private void setUpLstActor() {
+		for (int i = 0; i < broad.getMapInfo().getListAtoms().size(); i++) {
+			ActorGame actorG = new ActorGame();
+			actorG.setId(broad.getMapInfo().getListAtoms().get(i).getID());
+			actorG.setType(broad.getMapInfo().getListAtoms().get(i).getType());
+			actorG.setLstLink(broad.getMapInfo().getListAtoms().get(i).getTypeCon());
+			actorG.setUpAuto();
+			lstActor.add(actorG);
+		}
 	}
 	
 	private void setUpMapGame() {
@@ -42,12 +56,20 @@ public class ScreenGame extends AbstractScreen{
 				if (broad.getLocal(i, j).equals(OptionGame.WALL)) {
 					drawWall(broad.getWidthBroad() - i, j);
 				} else {
-					for (int j2 = 0; j2 < OptionGame.ITEM_KIND.length; j2++) {
-						if (broad.getLocal(i, j).equals(OptionGame.ITEM_KIND[j2][0])) {
-							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getStartDrawX(), broad.getStartDrawY(), broad.getWidthBroad() - i);
-							getStage().addActor(actor);
+					for (int j2 = 0; j2 < lstActor.size(); j2++) {
+						if (broad.getLocal(i, j).equals(lstActor.get(j2).getId())) {
+							lstActor.get(j2).setPosActor(i, j);
+							lstActor.get(j2).setStartBroad(broad.getStartDrawX(), broad.getStartDrawY());
+							lstActor.get(j2).setPosScreen(broad.getWidthBroad() - i);
+							getStage().addActor(lstActor.get(j2));
 						}
 					}
+//					for (int j2 = 0; j2 < OptionGame.ITEM_KIND.length; j2++) {
+//						if (broad.getLocal(i, j).equals(OptionGame.ITEM_KIND[j2][0])) {
+//							ActorGame actor = new ActorGame(new TextureRegion(Asset.loadTexture("katomic/"+OptionGame.ITEM_KIND[j2][1]+".png")), i, j, broad.getStartDrawX(), broad.getStartDrawY(), broad.getWidthBroad() - i);
+//							getStage().addActor(actor);
+//						}
+//					}
 				}
 			}
 		}
