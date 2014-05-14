@@ -7,14 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class ButtonGame extends Button{
 	
-	private boolean isShowActive = false;
+	private boolean isShowActive = true;
 	
 	public ButtonGame(Drawable _up, Drawable _down) {
 		super(_up, _down);
 	}
 	
-	public void setIsShowActive(boolean _isShowActive) {
-		isShowActive = _isShowActive;
+	public void setIsActive(boolean _isActive) {
+		isShowActive = _isActive;
 	}
 	
 	@Override
@@ -30,6 +30,5 @@ public class ButtonGame extends Button{
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		setVisible(isShowActive);
 	}
 }

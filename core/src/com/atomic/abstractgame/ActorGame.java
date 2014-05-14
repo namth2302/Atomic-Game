@@ -54,9 +54,9 @@ public class ActorGame extends Actor {
 	}
 	
 	
-	public void setPosActor(int x, int y) {
-		posX = x;
-		posY = y;
+	public void setPosActor(int _x, int _y) {
+		posX = _x;
+		posY = _y;
 	}
 	
 	public void setStartBroad(float x, float y) {

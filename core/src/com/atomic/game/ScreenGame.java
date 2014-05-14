@@ -56,9 +56,8 @@ public class ScreenGame extends AbstractScreen{
 		btnRight = MenuCreator.createCustomGameButton(Asset.btnRight, Asset.btnRight);
 		btnDown = MenuCreator.createCustomGameButton(Asset.btnDown, Asset.btnDown);
 		btnUp = MenuCreator.createCustomGameButton(Asset.btnUp, Asset.btnUp);
-		pointCurrentX = lstActor.get(0).getPosX();
-		pointCurrentY = lstActor.get(0).getPoxY();
 		idCurrent = lstActor.get(0).getId();
+		setPointCurrent();
 		setPosBtnMove();
 		btnListener();
 		getStage().addActor(btnLeft);
@@ -66,7 +65,15 @@ public class ScreenGame extends AbstractScreen{
 		getStage().addActor(btnDown);
 		getStage().addActor(btnUp);
 		showBtnMove();
-		
+	}
+	
+	private void setPointCurrent() {
+		for (int i = 0; i < lstActor.size(); i++) {
+			if (lstActor.get(i).getId().equals(idCurrent)) {
+				pointCurrentX = lstActor.get(i).getPosX();
+				pointCurrentY = lstActor.get(i).getPoxY();
+			}
+		}
 	}
 	
 	private void btnListener() {
@@ -76,6 +83,7 @@ public class ScreenGame extends AbstractScreen{
 					int pointer, int button) {
 				super.touchDown(event, x, y, pointer, button);
 				Gdx.app.log("BUTTON ", "LEFT");
+				setMoveLeft();
 			}
 		});
 		btnRight.addListener(new ActorGestureListener(){
@@ -84,6 +92,7 @@ public class ScreenGame extends AbstractScreen{
 					int pointer, int button) {
 				super.touchDown(event, x, y, pointer, button);
 				Gdx.app.log("BUTTON ", "RIGHT");
+				setMoveRight();
 			}
 		});
 		btnDown.addListener(new ActorGestureListener(){
@@ -92,6 +101,7 @@ public class ScreenGame extends AbstractScreen{
 					int pointer, int button) {
 				super.touchDown(event, x, y, pointer, button);
 				Gdx.app.log("BUTTON ", "DOWN");
+				setMoveDown();
 			}
 		});
 		btnUp.addListener(new ActorGestureListener(){
@@ -100,15 +110,117 @@ public class ScreenGame extends AbstractScreen{
 					int pointer, int button) {
 				super.touchDown(event, x, y, pointer, button);
 				Gdx.app.log("BUTTON ", "UP");
+				setMoveUp();
+			}
+		});
+		btnRedo.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "REDO");
+			}
+		});
+		btnUndo.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "UNDO");
+			}
+		});
+		btnReset.addListener(new ActorGestureListener(){
+			@Override
+			public void touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				super.touchDown(event, x, y, pointer, button);
+				Gdx.app.log("BUTTON ", "RESET");
 			}
 		});
 	}
 	
+	private void setMoveRight() {
+		setAllUnvisiableBtn();
+		int tempX = pointCurrentX;
+		int tempY = pointCurrentY;
+		while(broad.getMapBroad()[pointCurrentX][pointCurrentY+1].equals(".")){
+			pointCurrentY += 1;
+		}
+		for (int i = 0; i < lstActor.size(); i++) {
+			if (lstActor.get(i).getId() == idCurrent) {
+				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				broad.getMapBroad()[tempX][tempY] = ".";
+				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
+			}
+		}
+		setPosBtnMove();
+		showBtnMove();
+	}
+	
+	private void setMoveLeft() {
+		setAllUnvisiableBtn();
+		int tempX = pointCurrentX;
+		int tempY = pointCurrentY;
+		while(broad.getMapBroad()[pointCurrentX][pointCurrentY-1].equals(".")){
+			pointCurrentY -= 1;
+		}
+		for (int i = 0; i < lstActor.size(); i++) {
+			if (lstActor.get(i).getId() == idCurrent) {
+				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				broad.getMapBroad()[tempX][tempY] = ".";
+				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
+			}
+		}
+		setPosBtnMove();
+		showBtnMove();
+	}
+	
+	private void setMoveDown() {
+		setAllUnvisiableBtn();
+		int tempX = pointCurrentX;
+		int tempY = pointCurrentY;
+		while(broad.getMapBroad()[pointCurrentX+1][pointCurrentY].equals(".")){
+			pointCurrentX += 1;
+		}
+		for (int i = 0; i < lstActor.size(); i++) {
+			if (lstActor.get(i).getId() == idCurrent) {
+				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				broad.getMapBroad()[tempX][tempY] = ".";
+				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
+			}
+		}
+		setPosBtnMove();
+		showBtnMove();
+	}
+	
+	private void setMoveUp() {
+		setAllUnvisiableBtn();
+		int tempX = pointCurrentX;
+		int tempY = pointCurrentY;
+		while(broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")){
+			pointCurrentX -= 1;
+		}
+		for (int i = 0; i < lstActor.size(); i++) {
+			if (lstActor.get(i).getId() == idCurrent) {
+				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				broad.getMapBroad()[tempX][tempY] = ".";
+				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
+				Gdx.app.log("SHOW ", pointCurrentX + " - " + (pointCurrentY-1));
+			}
+		}
+		setPosBtnMove();
+		showBtnMove();
+	}
+	
 	private void setAllUnvisiableBtn() {
-		btnDown.setIsShowActive(false);
-		btnUp.setIsShowActive(false);
-		btnLeft.setIsShowActive(false);
-		btnRight.setIsShowActive(false);
+		btnDown.setVisible(false);
+		btnUp.setVisible(false);
+		btnLeft.setVisible(false);
+		btnRight.setVisible(false);
 	}
 	
 	private void setPosBtnMove() {
@@ -119,25 +231,33 @@ public class ScreenGame extends AbstractScreen{
 	}
 	
 	private void showBtnMove() {
-		if (!broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")) {
-			btnDown.setIsShowActive(false);
+		if (broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")) {
+			btnUp.setIsActive(true);
+			btnUp.setVisible(true);
 		} else {
-			btnDown.setIsShowActive(true);
+			btnUp.setIsActive(false);
+			btnUp.setVisible(false);
 		}
-		if (!broad.getMapBroad()[pointCurrentX+1][pointCurrentY].equals(".")) {
-			btnUp.setIsShowActive(false);
+		if (broad.getMapBroad()[pointCurrentX+1][pointCurrentY].equals(".")) {
+			btnDown.setIsActive(true);
+			btnDown.setVisible(true);
 		} else {
-			btnUp.setIsShowActive(true);
+			btnDown.setIsActive(false);
+			btnDown.setVisible(false);
 		}
-		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY-1].equals(".")) {
-			btnLeft.setIsShowActive(false);
+		if (broad.getMapBroad()[pointCurrentX][pointCurrentY-1].equals(".")) {
+			btnLeft.setIsActive(true);
+			btnLeft.setVisible(true);
 		} else {
-			btnLeft.setIsShowActive(true);
+			btnLeft.setIsActive(false);
+			btnLeft.setVisible(false);
 		}
-		if (!broad.getMapBroad()[pointCurrentX][pointCurrentY+1].equals(".")) {
-			btnRight.setIsShowActive(false);
+		if (broad.getMapBroad()[pointCurrentX][pointCurrentY+1].equals(".")) {
+			btnRight.setIsActive(true);
+			btnRight.setVisible(true);
 		} else {
-			btnRight.setIsShowActive(true);
+			btnRight.setIsActive(false);
+			btnRight.setVisible(false);
 		}
 	}
 	
@@ -181,25 +301,20 @@ public class ScreenGame extends AbstractScreen{
 		btnRedo = MenuCreator.createCustomGameButton(Asset.btnRecno, Asset.btnRecno);
 		btnRedo.setSize(70, 70);
 		btnRedo.setPosition(1030, 200);
-		btnRedo.setIsShowActive(true);
+		btnRedo.setIsActive(true);
 		getStage().addActor(btnRedo);
 		
 		btnUndo = MenuCreator.createCustomGameButton(Asset.btnUndo, Asset.btnUndo);
 		btnUndo.setSize(70, 70);
 		btnUndo.setPosition(900, 200);
-		btnUndo.setIsShowActive(true);
+		btnUndo.setIsActive(true);
 		getStage().addActor(btnUndo);
 		
 		btnReset = MenuCreator.createCustomGameButton(Asset.btnReset, Asset.btnReset);
 		btnReset.setSize(80, 80);
 		btnReset.setPosition(1150, 190);
-		btnReset.setIsShowActive(true);
+		btnReset.setIsActive(true);
 		getStage().addActor(btnReset);
-		
-//		btnUp = MenuCreator.createCustomGameButton(ASSET.imgBtnUp, ASSET.imgBtnUp);
-//		btnUp.setSize(53, 53);
-//		btnUp.setPosition(lazy.getLazyPointX()*53, (lazy.getLazyPointY()+1)*53);
-//		getStage().addActor(btnUp);
 		
 		avatar = new Image(Asset.imgDefaultAvantarMan);
 		avatar.setSize(90, 90);
