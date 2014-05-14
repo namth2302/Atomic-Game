@@ -12,7 +12,9 @@ import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
@@ -268,6 +270,7 @@ public class ScreenGame extends AbstractScreen{
 			actorG.setType(broad.getMapInfo().getListAtoms().get(i).getType());
 			actorG.setLstLink(broad.getMapInfo().getListAtoms().get(i).getTypeCon());
 			actorG.setUpAuto();
+			actorG.addInputListeners();
 			lstActor.add(actorG);
 		}
 	}
@@ -283,6 +286,7 @@ public class ScreenGame extends AbstractScreen{
 							lstActor.get(j2).setPosActor(i, j);
 							lstActor.get(j2).setStartBroad(broad.getStartDrawX(), broad.getStartDrawY());
 							lstActor.get(j2).setPosScreen(broad.getWidthBroad() - i);
+							lstActor.get(j2).setUpACtor();
 							getStage().addActor(lstActor.get(j2));
 						}
 					}

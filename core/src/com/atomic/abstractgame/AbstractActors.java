@@ -23,6 +23,11 @@ public class AbstractActors extends Actor{
 		setSize(_width, _height);
 	}
 	
+	@Override
+	public Actor hit(float x, float y, boolean touchable) {
+		return super.hit(x, y, touchable);
+	}
+	
 	public int getPosX() {
 		return posX;
 	}
