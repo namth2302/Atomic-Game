@@ -3,6 +3,7 @@ package com.atomic.abstractgame;
 import java.util.ArrayList;
 
 import com.atomic.asset.Asset;
+import com.atomic.game.ScreenGame;
 import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,12 +26,14 @@ public class ActorGame extends Actor {
 	private String lstLink;
 	
 	private ArrayList<TextureRegion> lstDrawLink = new ArrayList<TextureRegion>();
+	private ScreenGame screen;
 	
-	public ActorGame(){
+	public ActorGame(ScreenGame _screen){
 		super();
+		screen = _screen;
 	}
 	
-	public void setUpACtor() {
+	public void setUpActor() {
 		setPosition(startBroadX + posY*53, startBroadY + posScreen*53);
 		setSize(53, 53);
 	}
@@ -39,13 +42,17 @@ public class ActorGame extends Actor {
 		addListener(new InputListener(){
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				Gdx.app.log("InputLog", "TOUCH DOWN");
-				return true;
+				screen.setID(getId());
+				screen.setPointXY(posX, posY);
+				screen.setPosBtnMove();
+				screen.showBtnMove();
+				Gdx.app.log("SHOW: ", "" + id);
+				return false;
 			}
 			
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				Gdx.app.log("IngputLog", "TOUCH UP");
+	
 			}
 		});
 	}
@@ -95,10 +102,10 @@ public class ActorGame extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		batch.setColor(this.getColor());
+		batch.draw(textureActor, startBroadX + posY*53, startBroadY + posScreen*53);
 		for (int i = 0; i < lstDrawLink.size(); i++) {
 			batch.draw((TextureRegion)lstDrawLink.get(i), startBroadX + posY*53, startBroadY + posScreen*53);
 		}
-		batch.draw(textureActor, startBroadX + posY*53, startBroadY + posScreen*53);
 	}
 	
 	public void setId(String _id) {

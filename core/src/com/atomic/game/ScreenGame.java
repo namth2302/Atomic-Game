@@ -12,7 +12,6 @@ import com.atomic.option.OptionGame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -151,6 +150,7 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
@@ -170,6 +170,7 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
@@ -189,6 +190,7 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
@@ -208,6 +210,7 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
+				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
@@ -218,21 +221,21 @@ public class ScreenGame extends AbstractScreen{
 		showBtnMove();
 	}
 	
-	private void setAllUnvisiableBtn() {
+	public void setAllUnvisiableBtn() {
 		btnDown.setVisible(false);
 		btnUp.setVisible(false);
 		btnLeft.setVisible(false);
 		btnRight.setVisible(false);
 	}
 	
-	private void setPosBtnMove() {
+	public void setPosBtnMove() {
 		btnLeft.setPosition(broad.getStartDrawX() + (pointCurrentY-1)*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 		btnRight.setPosition(broad.getStartDrawX() + (pointCurrentY+1)*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 		btnDown.setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX - 1)*53);
 		btnUp.setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX + 1)*53);
 	}
 	
-	private void showBtnMove() {
+	public void showBtnMove() {
 		if (broad.getMapBroad()[pointCurrentX-1][pointCurrentY].equals(".")) {
 			btnUp.setIsActive(true);
 			btnUp.setVisible(true);
@@ -265,12 +268,11 @@ public class ScreenGame extends AbstractScreen{
 	
 	private void setUpLstActor() {
 		for (int i = 0; i < broad.getMapInfo().getListAtoms().size(); i++) {
-			ActorGame actorG = new ActorGame();
+			ActorGame actorG = new ActorGame(this);
 			actorG.setId(broad.getMapInfo().getListAtoms().get(i).getID());
 			actorG.setType(broad.getMapInfo().getListAtoms().get(i).getType());
 			actorG.setLstLink(broad.getMapInfo().getListAtoms().get(i).getTypeCon());
 			actorG.setUpAuto();
-			actorG.addInputListeners();
 			lstActor.add(actorG);
 		}
 	}
@@ -286,13 +288,27 @@ public class ScreenGame extends AbstractScreen{
 							lstActor.get(j2).setPosActor(i, j);
 							lstActor.get(j2).setStartBroad(broad.getStartDrawX(), broad.getStartDrawY());
 							lstActor.get(j2).setPosScreen(broad.getWidthBroad() - i);
-							lstActor.get(j2).setUpACtor();
+							lstActor.get(j2).setUpActor();
+							lstActor.get(j2).addInputListeners();
 							getStage().addActor(lstActor.get(j2));
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	public void setID(String _id) {
+		idCurrent = _id;
+	}
+	
+	public void setPointXY(int x, int y) {
+		pointCurrentX = x;
+		pointCurrentY = y;
+	}
+	
+	public String getID() {
+		return idCurrent;
 	}
 	
 	private void drawWall(int x, int y) {
@@ -329,6 +345,7 @@ public class ScreenGame extends AbstractScreen{
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		
 	}
 	
 	@Override
