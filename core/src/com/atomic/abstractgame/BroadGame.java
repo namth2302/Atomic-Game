@@ -7,6 +7,7 @@ public class BroadGame {
 	
 	private String[][] map;
 	private String[][] mapResulf;
+	private String[][] mapReset;
 	private JsonLevel mapInfo;
 	private int width;
 	private int height;
@@ -22,12 +23,14 @@ public class BroadGame {
 		setHeightBroad(mapInfo.getListArena().size());
 		setWidthBroad(mapInfo.getListArena().get(0).split("").length);
 		map = new String[height][width];
+		mapReset = new String[height][width];
 		startDrawX = (OptionGame.MAX_SIZE_BROAD - width)/2;
 		startDrawY = (OptionGame.MAX_SIZE_BROAD - height)/2;
 		for (int i = 0; i < getHeightBroad(); i++) {
 			for (int j = 0; j < getWidthBroad(); j++) {
 				String[] temList = mapInfo.getListArena().get(i).split(""); 
 				map[i][j] = temList[j];
+				mapReset[i][j] = temList[j];
 			}
 		}
 		int tempW = mapInfo.getListMolecule().get(0).length();
@@ -36,7 +39,7 @@ public class BroadGame {
 		for (int i = 0; i < tempH; i++) {
 			for (int j = 0; j < tempW; j++) {
 				String[] tempList = mapInfo.getListMolecule().get(i).split("");
-				mapResulf[i][j] = tempList[j];
+				mapReset[i][j] = tempList[j];
 			}
 		}
 	}
@@ -75,5 +78,14 @@ public class BroadGame {
 	
 	public JsonLevel getMapInfo() {
 		return mapInfo;
+	}
+	
+	public void reset() {
+		for (int i = 0; i < getHeightBroad(); i++) {
+			for (int j = 0; j < getWidthBroad(); j++) {
+				map[i][j] = mapReset[i][j];
+			}
+			
+		}
 	}
 }

@@ -136,6 +136,23 @@ public class ScreenGame extends AbstractScreen{
 					int pointer, int button) {
 				super.touchDown(event, x, y, pointer, button);
 				Gdx.app.log("BUTTON ", "RESET");
+				broad.reset();
+				for (int i = 0; i < broad.getHeightBroad(); i++) {
+					for (int j = 0; j < broad.getWidthBroad(); j++) {
+							for (int j2 = 0; j2 < lstActor.size(); j2++) {
+								if (broad.getLocal(i, j).equals(lstActor.get(j2).getId())) {
+									lstActor.get(j2).setPosActor(i, j);
+									lstActor.get(j2).setStartBroad(broad.getStartDrawX(), broad.getStartDrawY());
+									lstActor.get(j2).setPosScreen(broad.getWidthBroad() - i);
+									lstActor.get(j2).setUpActor();
+							}
+						}
+					}
+				}
+				idCurrent = lstActor.get(0).getId();
+				setPointCurrent();
+				setPosBtnMove();
+				showBtnMove();
 			}
 		});
 	}
@@ -150,8 +167,8 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
-				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				lstActor.get(i).setUpActor();
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
 			}
@@ -170,8 +187,8 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
-				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				lstActor.get(i).setUpActor();
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
 			}
@@ -190,8 +207,8 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
-				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				lstActor.get(i).setUpActor();
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
 			}
@@ -210,8 +227,8 @@ public class ScreenGame extends AbstractScreen{
 		for (int i = 0; i < lstActor.size(); i++) {
 			if (lstActor.get(i).getId() == idCurrent) {
 				lstActor.get(i).setPosActor(pointCurrentX, pointCurrentY);
-				lstActor.get(i).setPosition(broad.getStartDrawX() + pointCurrentY*53, broad.getStartDrawY() + broad.getStartDrawY() + (broad.getWidthBroad() - pointCurrentX)*53);
 				lstActor.get(i).setPosScreen(broad.getWidthBroad() - pointCurrentX);
+				lstActor.get(i).setUpActor();
 				broad.getMapBroad()[tempX][tempY] = ".";
 				broad.getMapBroad()[pointCurrentX][pointCurrentY] = lstActor.get(i).getId();
 				Gdx.app.log("SHOW ", pointCurrentX + " - " + (pointCurrentY-1));
