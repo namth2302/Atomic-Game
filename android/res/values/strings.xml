@@ -3,4 +3,26 @@
 
     <string name="app_name">my-atomic-game</string>
 
+    <string name="login_text">Log In</string>
+
+    <string name="name">Name</string>
+
+    <string name="dangnhap">Log in</string>
+
+    <string name="password_text">Password</string>
+
+    <string name="newAccountText">Create New Account</string>
+
+    <string name="usename_text">UseName</string>
+
+    <string name="verifypass_text">Verify Password</string>
+
+    <string name="signup_text">Sign Up</string>
+
+    <string name="room_text">Room</string>
+
+    <string name="amount_text">Amount</string>
+
+    <string name="atomic_text">Atomic</string>
+
 </resources>
